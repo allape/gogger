@@ -6,6 +6,7 @@ import (
 
 const (
 	EnvLevel           = "GOGGER_LEVEL"
+	EnvFlag            = "GOGGER_FLAG"
 	EnvNormalChannel   = "GOGGER_NORMAL_CHANNEL"
 	EnvCriticalChannel = "GOGGER_CRITICAL_CHANNEL"
 )
@@ -22,6 +23,12 @@ func InitFromEnv() error {
 	}
 
 	Level = level
+
+	flag, err := goenv.MustGetenv(EnvFlag, PresetFlag)
+	if err != nil {
+		return err
+	}
+	PresetFlag = flag
 
 	nc, err := goenv.MustGetenv(EnvNormalChannel, Stdout)
 	if err != nil {

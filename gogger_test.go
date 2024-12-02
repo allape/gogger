@@ -72,7 +72,7 @@ func TestLogger(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	l := New("test", log.LstdFlags, nil, nil)
+	l := New("test")
 
 	if l.Error() != DiscardLogger {
 		t.Fatalf("Error logger should be DiscardLogger")
@@ -100,7 +100,7 @@ func TestLevel(t *testing.T) {
 		nc := bytes.NewBuffer(nil)
 		cc := bytes.NewBuffer(nil)
 
-		l := New("test", log.LstdFlags, nc, cc)
+		l := NewWithWriter("test", log.LstdFlags, nc, cc)
 
 		if level >= Verbose {
 			l.Verbose().Print("verbose")

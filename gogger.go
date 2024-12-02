@@ -6,6 +6,8 @@ import (
 	"log"
 )
 
+var PresetFlag = log.LstdFlags | log.Lmsgprefix
+
 var DiscardLogger = log.New(io.Discard, "", 0)
 
 var Level = Info
@@ -22,7 +24,7 @@ func newLogger(writer io.Writer, tag, appendix string, flag int) *log.Logger {
 	} else {
 		prefix += fmt.Sprintf(".%s ", appendix)
 	}
-	return log.New(writer, prefix, flag|log.Lmsgprefix)
+	return log.New(writer, prefix, flag|PresetFlag)
 }
 
 type Logger struct {
@@ -158,11 +160,19 @@ func (l *Logger) Verbose() *log.Logger {
 	return l.verbose
 }
 
-func New(tag string, flag int, normal, critical io.Writer) *Logger {
+func NewWithWriter(tag string, flag int, normal, critical io.Writer) *Logger {
 	return &Logger{
 		Normal:   normal,
 		Critical: critical,
 		Tag:      tag,
 		Flag:     flag,
 	}
+}
+
+func NewWithFlag(tag string, flag int) *Logger {
+	return NewWithWriter(tag, flag, nil, nil)
+}
+
+func New(tag string) *Logger {
+	return NewWithFlag(tag, 0)
 }
