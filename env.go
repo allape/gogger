@@ -11,7 +11,7 @@ const (
 )
 
 func InitFromEnv() error {
-	readableLevel, err := goenv.GetSafeEnv(EnvLevel, RInfo)
+	readableLevel, err := goenv.MustGetenv(EnvLevel, RInfo)
 	if err != nil {
 		return err
 	}
@@ -23,13 +23,13 @@ func InitFromEnv() error {
 
 	Level = level
 
-	nc, err := goenv.GetSafeEnv(EnvNormalChannel, Stdout)
+	nc, err := goenv.MustGetenv(EnvNormalChannel, Stdout)
 	if err != nil {
 		return err
 	}
 	NormalChannel = nc
 
-	cc, err := goenv.GetSafeEnv(EnvCriticalChannel, Stderr)
+	cc, err := goenv.MustGetenv(EnvCriticalChannel, Stderr)
 	if err != nil {
 		return err
 	}

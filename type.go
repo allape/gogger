@@ -40,6 +40,8 @@ func (l ReadableLevel) ToLevel() (LoggerLevel, error) {
 		return Debug, nil
 	case string(RVerbose):
 		return Verbose, nil
+	case string(ROff):
+		return Off, nil
 	default:
 		return 0, fmt.Errorf("invalid level: %s", l)
 	}
@@ -61,6 +63,7 @@ func (c LoggerChannel) ToWriter() io.Writer {
 }
 
 const (
+	Off     LoggerLevel = 0
 	Error   LoggerLevel = 10
 	Warn    LoggerLevel = 100
 	Info    LoggerLevel = 1000

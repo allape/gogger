@@ -9,7 +9,7 @@ import (
 )
 
 func TestReadableLevelAndLevel(t *testing.T) {
-	levels := []LoggerLevel{Verbose, Debug, Info, Warn, Error, 0}
+	levels := []LoggerLevel{Verbose, Debug, Info, Warn, Error, Off}
 
 	for _, level := range levels {
 		readable := level.ToReadable()
