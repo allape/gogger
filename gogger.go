@@ -17,14 +17,12 @@ var (
 	CriticalChannel = Stderr
 )
 
-func newLogger(writer io.Writer, tag, appendix string, flag int) *log.Logger {
-	prefix := fmt.Sprintf("%s", tag)
-	if appendix == "" {
-		prefix += " "
-	} else {
-		prefix += fmt.Sprintf(".%s ", appendix)
-	}
-	return log.New(writer, prefix, flag|PresetFlag)
+func newLogger(writer io.Writer, l LoggerLevel, tag string, flag int) *log.Logger {
+	return log.New(
+		writer,
+		fmt.Sprintf("%c [%s] ", l.ToReadable()[0], tag),
+		flag|PresetFlag,
+	)
 }
 
 type Logger struct {
@@ -61,7 +59,7 @@ func (l *Logger) Error() *log.Logger {
 		writer = CriticalChannel.ToWriter()
 	}
 
-	l.error = newLogger(writer, l.Tag, "ERROR", l.Flag)
+	l.error = newLogger(writer, Error, l.Tag, l.Flag)
 
 	return l.error
 }
@@ -86,7 +84,7 @@ func (l *Logger) Warn() *log.Logger {
 		writer = CriticalChannel.ToWriter()
 	}
 
-	l.warn = newLogger(writer, l.Tag, "warn", l.Flag)
+	l.warn = newLogger(writer, Warn, l.Tag, l.Flag)
 
 	return l.warn
 }
@@ -109,7 +107,7 @@ func (l *Logger) Info() *log.Logger {
 		writer = NormalChannel.ToWriter()
 	}
 
-	l.info = newLogger(writer, l.Tag, "", l.Flag)
+	l.info = newLogger(writer, Info, l.Tag, l.Flag)
 
 	return l.info
 }
@@ -132,7 +130,7 @@ func (l *Logger) Debug() *log.Logger {
 		writer = NormalChannel.ToWriter()
 	}
 
-	l.debug = newLogger(writer, l.Tag, "", l.Flag)
+	l.debug = newLogger(writer, Debug, l.Tag, l.Flag)
 
 	return l.debug
 }
@@ -155,7 +153,7 @@ func (l *Logger) Verbose() *log.Logger {
 		writer = NormalChannel.ToWriter()
 	}
 
-	l.verbose = newLogger(writer, l.Tag, "", l.Flag)
+	l.verbose = newLogger(writer, Verbose, l.Tag, l.Flag)
 
 	return l.verbose
 }

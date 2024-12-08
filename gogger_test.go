@@ -105,35 +105,35 @@ func TestLevel(t *testing.T) {
 		if level >= Verbose {
 			l.Verbose().Print("verbose")
 			logged := nc.String()
-			if !strings.HasSuffix(logged, "test verbose\n") {
+			if !strings.HasSuffix(logged, "V [test] verbose\n") {
 				t.Fatalf("Expected: verbose, Got: %s", logged)
 			}
 		}
 		if level >= Debug {
 			l.Debug().Print("debug")
 			logged := nc.String()
-			if !strings.HasSuffix(logged, "test debug\n") {
+			if !strings.HasSuffix(logged, "D [test] debug\n") {
 				t.Fatalf("Expected: debug, Got: %s", logged)
 			}
 		}
 		if level >= Info {
 			l.Info().Print("info")
 			logged := nc.String()
-			if !strings.HasSuffix(logged, "test info\n") {
+			if !strings.HasSuffix(logged, "I [test] info\n") {
 				t.Fatalf("Expected: info, Got: %s", logged)
 			}
 		}
 		if level >= Warn {
 			l.Warn().Print("warn")
 			logged := cc.String()
-			if !strings.HasSuffix(logged, "test.warn warn\n") {
+			if !strings.HasSuffix(logged, "W [test] warn\n") {
 				t.Fatalf("Expected: warn, Got: %s", logged)
 			}
 		}
 		if level >= Error {
 			l.Error().Print("error")
 			logged := cc.String()
-			if !strings.HasSuffix(logged, "test.ERROR error\n") {
+			if !strings.HasSuffix(logged, "E [test] error\n") {
 				t.Fatalf("Expected: error, Got: %s", logged)
 			}
 		}
