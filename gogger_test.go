@@ -139,3 +139,15 @@ func TestLevel(t *testing.T) {
 		}
 	}
 }
+
+func TestLoggerNew(t *testing.T) {
+	parent := New("parent")
+	if parent.Tag != "parent" {
+		t.Fatalf("Expected: %v, Got: %v", "parent", parent.Tag)
+	}
+
+	child := parent.New("child")
+	if child.Tag != "parent:child" {
+		t.Fatalf("Expected: %v, Got: %v", "parent:child", child.Tag)
+	}
+}

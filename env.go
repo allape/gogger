@@ -24,7 +24,7 @@ func InitFromEnv() error {
 
 	Level = level
 
-	flag, err := goenv.MustGetenv(EnvFlag, PresetFlag)
+	flag, err := goenv.MustGetenv[int](EnvFlag, PresetFlag)
 	if err != nil {
 		return err
 	}

@@ -158,6 +158,10 @@ func (l *Logger) Verbose() *log.Logger {
 	return l.verbose
 }
 
+func (l *Logger) New(childTag string) *Logger {
+	return New(l.Tag + ":" + childTag)
+}
+
 func NewWithWriter(tag string, flag int, normal, critical io.Writer) *Logger {
 	return &Logger{
 		Normal:   normal,
